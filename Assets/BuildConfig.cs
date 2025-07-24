@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BuildConfig", menuName = "Build Config")]
 public class BuildConfig : ScriptableObject
 {
-    public static void PerformBuild()
+    public void Build()
     {
         Debug.Log("Starting Unity build...");
 
