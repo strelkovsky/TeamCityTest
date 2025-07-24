@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+#if UNITY_EDITOR
 
 [CreateAssetMenu(fileName = "BuildConfig", menuName = "Build Config")]
 public class BuildConfig : ScriptableObject
@@ -16,3 +17,5 @@ public class BuildConfig : ScriptableObject
         Debug.Log("Build finished.");
     }
 }
+
+#endif

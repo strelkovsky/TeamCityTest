@@ -1,6 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 public static class BuildEntry
 {
     // Вызывается из TeamCity: -executeMethod BuildEntry.PerformBuild
@@ -18,3 +19,4 @@ public static class BuildEntry
         config.Build();
     }
 }
+#endif
