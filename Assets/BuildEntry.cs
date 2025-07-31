@@ -1,18 +1,29 @@
+using System;
+using System.Linq;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 #if UNITY_EDITOR
 public static class BuildEntry
 {
-    // Вызывается из TeamCity: -executeMethod BuildEntry.PerformBuild
     public static void PerformBuild()
     {
-        // Загрузи ассет (можно передать имя или путь через параметр)
-        var config = AssetDatabase.LoadAssetAtPath<BuildConfig>("Assets/BuildConfig.asset");
+        string configPath = Environment.GetCommandLineArgs()
+            .FirstOrDefault(arg => arg.StartsWith("-buildConfig="))?
+            .Replace("-buildConfig=", "");
 
+        if (string.IsNullOrEmpty(configPath))
+        {
+            Debug.LogError("Missing -buildConfig=... parameter");
+            return;
+        }
+
+        var config = AssetDatabase.LoadAssetAtPath<BuildConfig>(configPath);
         if (config == null)
         {
-            Debug.LogError("BuildConfig asset not found!");
+            Debug.LogError($"Config not found at path: {configPath}");
             return;
         }
 
